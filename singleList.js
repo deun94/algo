@@ -182,6 +182,74 @@ class SLList{
 
     }
 
+    // given a location in a list find that location and add the given value after that location
+    // there are no indices
+
+    // appendValue(loc, num){
+    //     //count and give each number in the list a "location"
+    //     //given the number iterate to the "location"
+    //     //add the number next to the location
+    //     //var newNode = new Node(num)
+
+    //     if(!this.head){ 
+    //         console.log("There's nothing in this list ")
+    //         newNode = this.head
+    //         newNode = this.tail
+
+    //     }
+    //     var runner = this.head
+    //     var count = 0
+    //     var dict = []
+
+    //     while(runner != null){
+    //         // var dict = []
+    //         dict[count] = runner
+    //         runner = runner.next
+    //         count ++
+    //     }
+
+    //     console.log(dict)
+    //     console.log(dict[loc])
+
+
+    // }
+    appendValue(loc, num) {
+        var runner = this.head;
+        var count = 0;
+        var x;
+
+        while(count <= loc) {
+            count++;
+            x = runner;
+            runner = runner.next;
+        }
+
+        var newNode = new Node(num);
+        newNode.next = runner;
+        x.next = newNode;
+        return this;
+    }
+    prependValue(loc, num) {
+        var runner = this.head;
+        var count = 0;
+        var x;
+
+        while(count < loc) {
+            count++;
+            x = runner;
+            runner = runner.next;
+        }
+
+        var newNode = new Node(num);
+        newNode.next = runner;
+        x.next = newNode;
+        return this;
+    }
+
+    prependValue(Loc, num){
+
+    }
+
     //run through this list and print all the values
     printValues() {
         //start at head pointer
@@ -217,5 +285,6 @@ sll.addToBack(-5);
 sll.printValues();
 sll.moveMinToFront();
 sll.printValues();
-sll.moveMaxToBack();
+// sll.moveMaxToBack();
 sll.printValues();
+sll.appendValue(3)
