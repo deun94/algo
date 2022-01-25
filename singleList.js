@@ -214,41 +214,60 @@ class SLList{
 
     // }
     appendValue(loc, num) {
+        if(loc <=0 || !this.head){
+            this.addToFront(num);
+            return this;
+        }
+
         var runner = this.head;
         var count = 0;
         var x;
 
-        while(count <= loc) {
+        while(runner.next != null && count < loc) {
             count++;
-            x = runner;
             runner = runner.next;
         }
 
-        var newNode = new Node(num);
-        newNode.next = runner;
-        x.next = newNode;
-        return this;
+        if(runner.next == null){
+            this.addToBack(num);
+            return this;
+        }else {
+            var newNode = new Node(num);
+            newNode.next = runner.next;
+            runner.next = newNode;
+            return this;
+        }
     }
     prependValue(loc, num) {
+        if(loc <=0 ||!this.head){
+            this.addToFront(num);
+            return this;
+        }
         var runner = this.head;
         var count = 0;
         var x;
 
-        while(count < loc) {
+        while(runner.next !=null && count < loc) {
             count++;
             x = runner;
             runner = runner.next;
         }
 
-        var newNode = new Node(num);
-        newNode.next = runner;
-        x.next = newNode;
-        return this;
+        
+        if(runner.next == null){
+            this.addToBack(num);
+            return this;
+        }else {
+            var newNode = new Node(num);
+            newNode.next = runner;
+            x.next = newNode;
+            return this;
+        }
     }
 
-    prependValue(Loc, num){
+    // prependValue(Loc, num){
 
-    }
+    // }
 
     //run through this list and print all the values
     printValues() {
@@ -287,4 +306,4 @@ sll.moveMinToFront();
 sll.printValues();
 // sll.moveMaxToBack();
 sll.printValues();
-sll.appendValue(3)
+sll.appendValue(3, 5)
