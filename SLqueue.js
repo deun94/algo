@@ -53,38 +53,6 @@ class SLQueue{
         return false;
     }
 
-    // remove the minimum value in the queue (remember your edgecases and pointers!)
-    removeMin() {
-        if(this.head == null){
-            console.log("Nothing in this queue!")
-            return null
-        }
-
-        var runner = this.head;
-        var min = runner.value;
-
-        while(runner != null){
-            if(runner.value < min){
-                min = runner.value
-            }
-            runner = runner.next
-        }
-
-        runner = this.head;
-        while(runner.next.next != null){
-            if(runner.next.value === min){
-                runner.next = runner.next.next
-            }
-            else{
-                runner = runner.next
-            }
-        }
-        if(runner.next.value == min){
-            this.tail = runner
-            runner.next == null
-        }
-    }
-
     displayQueue(){
         if (!this.head){
             console.log("This queue is empty.");
@@ -129,64 +97,43 @@ class SLQueue{
 
         // Reorder SLQueue values to alternate first half values with second half values, in order. For example: (1,2,3,4,5) becomes (1,4,2,5,3). You may create one additional SLQueue, if needed.
 
-        // 1 --> 2 --> 3 --> 4 --> 5 --> 
-        // 1 --> 2 --> 3 -->    |      4 --> 5 --> 
-        // 1 --> 4 --> 2 --> 5 --> 3 --> 
+        // 1 --> 2 --> 3 --> 4 --> 5 --> 6 -->
+        // 1 --> 2 --> 3 -->    |      4 --> 5 --> 6 -->
+        // 1 --> 4 --> 2 --> 5 --> 3 --> 6 -->
 
-    size(){
+    interleaveQueue(){
         var runner = this.head;
         var count = 0;
         while (runner){
             count++;
             runner = runner.next;
         }
-        return count;
+        var half = count/2
+        var first =[];
+        var last =[];
+        runner = this.head;
+        for (var i = 0; i<half; i++){
+            first.push(runner.value)
+            runner = runner.next
+        }
+        // console.log(runner)
+        for (var j = half; j< count; j++){
+            last.push(runner.value)
+            runner = runner.next
+        }
+        console.log(first, last)
+
+        var interq =[];
+
+        for(var k =0; k < half; k++){
+            interq.push(first[k])
+            interq.push(last[k])
+        }
+        console.log(interq)
+        return interq
     }
 
-    interleaveQueue(){
-        var midpt = Math.ceil(this.size()/2);
-        var tempQueue = new SLQueue();
-
-        for (var i = 1; i <= midpt; i++){
-            tempQueue.enqueue(this.dequeue());
-        }
-        
-        var length = tempQueue.size();
-        for (var j = 1; j <= length; j++){
-            tempQueue.enqueue(tempQueue.dequeue());
-            tempQueue.enqueue(this.dequeue());
-        }
-        tempQueue.displayQueue();
-    }
-
-    // given a queue, determine whether or not the values therein are a pallindrome 
-    // Ex: 1 --> 2 --> 3 --> 2 --> 1 --> null
-    // any values that are in the same order going forwards as backwards is a pallindrome, doesn't need to just be letters
-    isPallindrome() {
-        if(!this.head || !this.head.next) { 
-            console.log("technically true cuz nothing or 1 thing is the same to and fro...")
-            return true
-        }
-        // collect values into a array so I can compare them to the items in the list
-        var runner = this.head;
-        var comparer = [];
-        while (runner) {
-            comparer.push(runner.value);
-            runner = runner.next;
-        }
-        
-        // compare items in the array starting from the end, to the items in the queue starting from the front
-        var newRunner = this.head;
-        // only need to go halfway through
-        for(var i = comparer.length-1 ; i > Math.floor(comparer.length/2) ; i --) {
-            if(comparer[i] != newRunner.value) {
-                return false
-            }
-            newRunner = newRunner.next
-        }
-        console.log("Neato! It's a palli :)")
-        return true
-    }
+    
 
 }
 
@@ -199,3 +146,5 @@ q.enqueue(4);
 q.enqueue(5);
 q.enqueue(6);
 q.displayQueue();
+
+q.interleaveQueue();
