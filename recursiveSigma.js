@@ -65,7 +65,7 @@ function recursiveFibonacci(num){
     if(num == 0){
         return 0
     }
-    //need this to check for the 0
+    //need this to check for the 0 because F0 will always return 0
     else if (num <= 2){
         // not one because that skips the step
         // if the number is two, we want (2-1) + (2-2)= 1
