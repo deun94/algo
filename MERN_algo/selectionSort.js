@@ -45,7 +45,7 @@ const selectionSort = (arr)=>{
             }
         }
         console.log(end);
-        [arr[bigIndex], arr[end]] = [arr[end], arr[bigIndex]];
+        [arr[bigIndex], arr[end]] = [arr[end], arr[bigIndex]];//destructure swap
     }
     return arr;
 }
